@@ -1,0 +1,92 @@
+
+<response>
+	<version>0.1</version>
+	<termsofService>http://www.wunderground.com/weather/api/d/terms.html</termsofService>
+	<features>
+		<feature>conditions</feature>
+	</features>
+  <current_observation>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://www.wunderground.com</link>
+		</image>
+		<display_location>
+		<full>Warszawa, Poland</full>
+		<city>Warszawa</city>
+		<state>MZ</state>
+		<state_name>Poland</state_name>
+		<country>PL</country>
+		<country_iso3166>PL</country_iso3166>
+		<zip>00000</zip>
+		<magic>308</magic>
+		<wmo>12375</wmo>
+		<latitude>52.16999817</latitude>
+		<longitude>21.57999992</longitude>
+		<elevation>150.0</elevation>
+		</display_location>
+		<observation_location>
+		<full>Dębe Wielkie, Gmina Dębe Wielkie, </full>
+		<city>Dębe Wielkie, Gmina Dębe Wielkie</city>
+		<state></state>
+		<country>PL</country>
+		<country_iso3166>PL</country_iso3166>
+		<latitude>52.202721</latitude>
+		<longitude>21.450546</longitude>
+		<elevation>404 ft</elevation>
+		</observation_location>
+		<estimated>
+		</estimated>
+		<station_id>IGMINADB2</station_id>
+		<observation_time>Last Updated on July 19, 11:37 AM CEST</observation_time>
+		<observation_time_rfc822>Wed, 19 Jul 2017 11:37:31 +0200</observation_time_rfc822>
+		<observation_epoch>1500457051</observation_epoch>
+		<local_time_rfc822>Wed, 19 Jul 2017 11:37:42 +0200</local_time_rfc822>
+		<local_epoch>1500457062</local_epoch>
+		<local_tz_short>CEST</local_tz_short>
+		<local_tz_long>Europe/Warsaw</local_tz_long>
+		<local_tz_offset>+0200</local_tz_offset>
+		<weather>Clear</weather>
+		<temperature_string>77.4 F (25.2 C)</temperature_string>
+		<temp_f>77.4</temp_f>
+		<temp_c>25.2</temp_c>
+		<relative_humidity>49%</relative_humidity>
+		<wind_string>Calm</wind_string>
+		<wind_dir>West</wind_dir>
+		<wind_degrees>269</wind_degrees>
+		<wind_mph>0.2</wind_mph>
+		<wind_gust_mph>2.5</wind_gust_mph>
+		<wind_kph>0.3</wind_kph>
+		<wind_gust_kph>4.0</wind_gust_kph>
+		<pressure_mb>1018</pressure_mb>
+		<pressure_in>30.06</pressure_in>
+		<pressure_trend>-</pressure_trend>
+		<dewpoint_string>57 F (14 C)</dewpoint_string>
+		<dewpoint_f>57</dewpoint_f>
+		<dewpoint_c>14</dewpoint_c>
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		<windchill_string>NA</windchill_string>
+		<windchill_f>NA</windchill_f>
+		<windchill_c>NA</windchill_c>
+        <feelslike_string>77.4 F (26 C)</feelslike_string>
+        <feelslike_f>77.4</feelslike_f>
+        <feelslike_c>26</feelslike_c>
+		<visibility_mi>N/A</visibility_mi>
+		<visibility_km>N/A</visibility_km>
+		<solarradiation>676</solarradiation>
+		<UV>4.0</UV>
+		<precip_1hr_string>0.00 in ( 0 mm)</precip_1hr_string>
+		<precip_1hr_in>0.00</precip_1hr_in>
+		<precip_1hr_metric> 0</precip_1hr_metric>
+		<precip_today_string>0.00 in (0 mm)</precip_today_string>
+		<precip_today_in>0.00</precip_today_in>
+		<precip_today_metric>0</precip_today_metric>
+		<icon>clear</icon>
+		<icon_url>http://icons.wxug.com/i/c/k/clear.gif</icon_url>
+		<forecast_url>http://www.wunderground.com/global/stations/12375.html</forecast_url>
+        <history_url>http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IGMINADB2</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=52.202721,21.450546</ob_url>
+	</current_observation>
+</response>

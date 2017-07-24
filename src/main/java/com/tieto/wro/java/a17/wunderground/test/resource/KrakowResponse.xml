@@ -1,0 +1,30 @@
+
+<response>
+	<version>0.1</version>
+	<termsofService>http://www.wunderground.com/weather/api/d/terms.html</termsofService>
+	<features>
+		<feature>conditions</feature>
+	</features>
+		<results>
+		<result>
+		<name>Krakow</name>
+		<city>Krakow</city>
+		<state>LD</state>
+		<country>PL</country>
+		<country_iso3166>PL</country_iso3166>
+		<country_name>Poland</country_name>
+		<zmw>00000.1041.12435</zmw>
+		<l>/q/zmw:00000.1041.12435</l>
+		</result>
+		<result>
+		<name>Krakow</name>
+		<city>Krakow</city>
+		<state>MA</state>
+		<country>PL</country>
+		<country_iso3166>PL</country_iso3166>
+		<country_name>Poland</country_name>
+		<zmw>00000.938.12566</zmw>
+		<l>/q/zmw:00000.938.12566</l>
+		</result>
+		</results>
+</response>
