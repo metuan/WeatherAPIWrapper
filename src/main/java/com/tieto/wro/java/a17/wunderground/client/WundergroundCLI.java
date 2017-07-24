@@ -14,13 +14,14 @@ import java.util.Scanner;
  * Created by KR.
  */
 public class WundergroundCLI {
+    private static final String URL_API = "http://api.wunderground.com/api/31c81b32dea6da45/conditions";
 
     private static String makeURLFromMultipleChoices(MultipleResponse multipleResponse) throws Exception {
-        return WundergroundClient.URL_ADRESS_WITH_API_KEY + getUniqueURI(multipleResponse) + ".xml";
+        return URL_API + getUniqueURI(multipleResponse) + ".xml";
     }
 
     private static WundergroundClient makeClientWithGivenCountryAndCity() throws MalformedURLException {
-        return new WundergroundClient(WundergroundClient.URL_ADRESS_WITH_API_KEY+"/");
+        return new WundergroundClient(URL_API+"/");
     }
 
     // getting URL from arrayList which is a result of RESULSTS filed in multiple response class

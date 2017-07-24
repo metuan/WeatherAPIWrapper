@@ -39,11 +39,11 @@ public class WeatherService {
 
     public CityWeather getCityWeather(String city) throws Exception {
         if (!CONTAINER_OF_ALLOWED_CITIES.containsKey(city)) {
-            logger.error("Status - 404. Can not find city with given name or service is not provided");
+            logger.error("Can not find city with given name or service is not provided");
             throw new RuntimeException();
         }
         else {
-            logger.info("Status - 200. Downloaded weather for " + city);
+            logger.info("Downloaded weather for " + city);
             String country = CONTAINER_OF_ALLOWED_CITIES.get(city);
             SingleResponse singleResponse = (SingleResponse) wundergroundClient.getWeather(country, city);
             return wundergroudResponseTransformer.transform(singleResponse);

@@ -4,6 +4,7 @@ package com.tieto.wro.java.a17.wunderground.weather;
  * Created by KR.
  */
 public class CityWeather {
+    
     private String location;
     private float temperatureCelsius;
     private String relativeHumidity;

@@ -27,12 +27,4 @@ public class WundergroundResponseTransformer {
             return cityWeatherBasedOnResponse;
         }
     }
-
-    public static void main(String... args) throws Exception {
-        WundergroundResponseTransformer wct = new WundergroundResponseTransformer();
-        WundergroundClient wc = new WundergroundClient("http://api.wunderground.com/api/31c81b32dea6da45/conditions/");
-        IResponse ir = wc.getWeather("poland", "warszawa");
-        CityWeather cw = wct.transform(ir);
-        System.out.println(cw);
-    }
 }

@@ -18,7 +18,6 @@ import java.net.MalformedURLException;
  */
 public class WundergroundClient {
 
-    static final String URL_ADRESS_WITH_API_KEY = "http://api.wunderground.com/api/31c81b32dea6da45/conditions";
     private String baseURL;
 
     public WundergroundClient(String baseURL) {
