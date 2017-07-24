@@ -17,6 +17,8 @@ Java REST service which is wrapper for the Weather Underground API. It can deliv
   - go to localhost:8080/weather/city and replace city with any given city.
 4. Terminate to stop app.
 
+### Please mention - If city consist of 2 phrases, please separate with underscore
+
 ## Technology and logs
 To check if App is working, go to the logINFO file, which should consist of some information about web-app.
 

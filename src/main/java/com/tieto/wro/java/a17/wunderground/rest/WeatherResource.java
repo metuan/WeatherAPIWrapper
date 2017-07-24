@@ -53,7 +53,8 @@ public class WeatherResource {
     @Path("weather/{city}")
     public Response getWeatherFromGivenCity(@PathParam("city") String city) throws Exception {
         try {
-            String json = objectMapper.writeValueAsString(weatherService.getCityWeather(city));
+            String cityIgnoreCase = city.toLowerCase();
+            String json = objectMapper.writeValueAsString(weatherService.getCityWeather(cityIgnoreCase));
             return Response.status(200).entity(json).type(MediaType.APPLICATION_JSON).build();
         }
         catch (Exception e) {
