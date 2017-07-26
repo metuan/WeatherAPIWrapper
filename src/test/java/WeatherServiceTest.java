@@ -1,4 +1,4 @@
-package com.tieto.wro.java.a17.wunderground.test.java; /**
+ /**
  * Created by KR.
  */
 import com.tieto.wro.java.a17.wunderground.client.WundergroundClient;

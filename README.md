@@ -13,8 +13,10 @@ Java REST service which is wrapper for the Weather Underground API. It can deliv
 2. Go to directory where You have downloaded that repository. 
 2. Type ```mvn jetty:run```
 3. When server starts:
-  - go to localhost:8080/weather to see weather for all 5 providede cities
-  - go to localhost:8080/weather/city and replace city with any given city.
+  - go to:
+    ``` localhost:8080/weather ``` to see weather for all 5 providede cities
+  - go to:
+    ``` localhost:8080/weather/city ``` and replace city with any given city.
 4. Terminate to stop app.
 
 ### Please mention - If city consist of 2 phrases, please separate with underscore

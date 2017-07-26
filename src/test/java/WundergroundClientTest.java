@@ -1,4 +1,4 @@
-package com.tieto.wro.java.a17.wunderground.test.java; /**
+/**
  * Created by KR.
  */
 
@@ -24,7 +24,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 public class WundergroundClientTest {
 
     private static final String SINGLE_RESPONSE_CITY = "warszawa";
-    private static final String MUTLITPLE_RESPONSE_CITY = "krakow";
+    private static final String MUTLIPLE_RESPONSE_CITY = "krakow";
     private static final String ERROR_RESPONSE_CTY = "xdxdasdas";
     private static final String COUNTRY = "poland";
     private WundergroundClient wc;
@@ -34,9 +34,42 @@ public class WundergroundClientTest {
         return new Scanner(new File(fileName).getAbsoluteFile()).useDelimiter("\\Z").next();
     }
     @Before
-    public void setUp() {
+    public void setUp() throws FileNotFoundException, MalformedURLException {
         logger.info("CLIENT TESTS INITLLIAZED");
         initJadler();
+
+        String contentOfXMLSingleResponse = convertXMLFileToString("src\\test\\java\\resource\\WarszawaResponse.xml");
+        String URLToSingleResponse = "/q/poland/warszawa.xml";
+        onRequest()
+                .havingMethodEqualTo("GET")
+                .havingPathEqualTo(URLToSingleResponse)
+                .respond()
+                .withBody(contentOfXMLSingleResponse)
+                .withContentType("application/XML")
+                .withStatus(200);
+
+        String contentOfXMLErrorResponse = convertXMLFileToString("src\\test\\java\\resource\\ErrorResponse.xml");
+        String URLToErrorResponse = "/q/poland/xdxdasdas.xml";
+        onRequest()
+                .havingMethodEqualTo("GET")
+                .havingPathEqualTo(URLToErrorResponse)
+                .respond()
+                .withBody(contentOfXMLErrorResponse)
+                .withContentType("application/XML")
+                .withStatus(200);
+
+        String contentOfXMLMultipleResponse = convertXMLFileToString("src\\test\\java\\resource\\KrakowResponse.xml");
+        String URLToMultipleResponse = "/q/poland/krakow.xml";
+        onRequest()
+                .havingMethodEqualTo("GET")
+                .havingPathEqualTo(URLToMultipleResponse)
+                .respond()
+                .withBody(contentOfXMLMultipleResponse)
+                .withContentType("application/XML")
+                .withStatus(200);
+
+
+
         wc = new WundergroundClient("http://localhost:" + port() +"/");
     }
     @After
@@ -46,55 +79,22 @@ public class WundergroundClientTest {
 
     @Test
     public void check_if_there_is_single_reponse() throws FileNotFoundException, MalformedURLException {
-        String contentOfXML = convertXMLFileToString("src\\test\\java\\resource\\WarszawaResponse.xml");
-        String URLToSingleResponse = "/q/poland/warszawa.xml";
-
-        onRequest()
-                .havingMethodEqualTo("GET")
-                .havingPathEqualTo(URLToSingleResponse)
-                .respond()
-                .withBody(contentOfXML)
-                .withContentType("application/XML")
-                .withStatus(200);
-
-        IResponse response = wc.getWeather(COUNTRY, SINGLE_RESPONSE_CITY);
-        Assert.assertNotNull(response);
-        Assert.assertThat(response, instanceOf(SingleResponse.class));
+        IResponse singleIResponse = wc.getWeather(COUNTRY, SINGLE_RESPONSE_CITY);
+        Assert.assertNotNull(singleIResponse);
+        Assert.assertThat(singleIResponse, instanceOf(SingleResponse.class));
     }
 
     @Test
     public void check_if_there_is_error_response() throws FileNotFoundException, MalformedURLException {
-        String contentOfXML = convertXMLFileToString("src\\test\\java\\resource\\ErrorResponse.xml");
-        String URLToErrorResponse = "/q/poland/xdxdasdas.xml";
-
-        onRequest()
-                .havingMethodEqualTo("GET")
-                .havingPathEqualTo(URLToErrorResponse)
-                .respond()
-                .withBody(contentOfXML)
-                .withContentType("application/XML")
-                .withStatus(200);
-
-        IResponse response = wc.getWeather(COUNTRY, ERROR_RESPONSE_CTY);
-        Assert.assertNotNull(response);
-        Assert.assertThat(response, instanceOf(ErrorResponse.class));
+        IResponse errorIResponse = wc.getWeather(COUNTRY, ERROR_RESPONSE_CTY);
+        Assert.assertNotNull(errorIResponse);
+        Assert.assertThat(errorIResponse, instanceOf(ErrorResponse.class));
     }
 
     @Test
     public void check_if_there_is_multiple_response() throws MalformedURLException, FileNotFoundException {
-        String contentOfXML = convertXMLFileToString("src\\test\\java\\resource\\KrakowResponse.xml");
-        String URLToErrorResponse = "/q/poland/krakow.xml";
-
-        onRequest()
-                .havingMethodEqualTo("GET")
-                .havingPathEqualTo(URLToErrorResponse)
-                .respond()
-                .withBody(contentOfXML)
-                .withContentType("application/XML")
-                .withStatus(200);
-
-        IResponse response = wc.getWeather(COUNTRY, MUTLITPLE_RESPONSE_CITY);
-        Assert.assertNotNull(response);
-        Assert.assertThat(response, instanceOf(MultipleResponse.class));
+        IResponse multipleIResponse = wc.getWeather(COUNTRY, MUTLIPLE_RESPONSE_CITY);
+        Assert.assertNotNull(multipleIResponse);
+        Assert.assertThat(multipleIResponse, instanceOf(MultipleResponse.class));
     }
 }

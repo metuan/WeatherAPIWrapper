@@ -12,9 +12,7 @@ import com.tieto.wro.java.a17.wunderground.model.SingleResponse;
 public class WundergroundResponseTransformer {
 
     public CityWeather transform(IResponse response) throws Exception {
-        if (response instanceof ErrorResponse || response instanceof MultipleResponse) {
-            throw new RuntimeException("Can not transform to CityWeather class");
-        } else {
+        if (response instanceof SingleResponse) {
             SingleResponse uniqueSingleResponse = (SingleResponse) response;
             CityWeather cityWeatherBasedOnResponse = new CityWeather();
             cityWeatherBasedOnResponse.setLocation(uniqueSingleResponse.getCurrentObservation().getDisplayLocation().getFull());
@@ -25,6 +23,9 @@ public class WundergroundResponseTransformer {
             cityWeatherBasedOnResponse.setWindString(uniqueSingleResponse.getCurrentObservation().getWindString());
             cityWeatherBasedOnResponse.setWeatherDate(uniqueSingleResponse.getCurrentObservation().getObservationTime());
             return cityWeatherBasedOnResponse;
+        }
+        else {
+            throw new RuntimeException("Can not transform to CityWeather class");
         }
     }
 }

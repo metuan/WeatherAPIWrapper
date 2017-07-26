@@ -3,12 +3,12 @@ package com.tieto.wro.java.a17.wunderground.weather;
 import com.tieto.wro.java.a17.wunderground.client.WundergroundClient;
 import com.tieto.wro.java.a17.wunderground.model.SingleResponse;
 import com.tieto.wro.java.a17.wunderground.rest.WeatherResource;
-import org.apache.log4j.Layout;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import sun.rmi.runtime.Log;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by KR.
@@ -58,18 +58,4 @@ public class WeatherService {
         }
         return listOfWeathersInGivenCities;
     }
-
-    public static void main(String... args) throws Exception {
-        WundergroundClient wc = new WundergroundClient("http://api.wunderground.com/api/31c81b32dea6da45/conditions/");
-        WundergroundResponseTransformer wrt = new WundergroundResponseTransformer();
-        WeatherService ws = new WeatherService(wc, wrt);
-        for (CityWeather e : ws.getCitiesWeathers()) {
-            System.out.println(e);
-            System.out.println("------------");
-        }
-
-    }
-
-
-
 }

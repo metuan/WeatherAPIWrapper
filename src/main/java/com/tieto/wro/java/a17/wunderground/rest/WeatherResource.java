@@ -22,7 +22,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("/")
 public class WeatherResource {
-    private WundergroundClient wundergroundClient = new WundergroundClient("http://api.wunderground.com/api/31c81b32dea6da45/conditions/");
+    private WundergroundClient wundergroundClient = new WundergroundClient("http://localhost:8089/");
     private WundergroundResponseTransformer wundergroundResponseTransformer = new WundergroundResponseTransformer();
     private WeatherService weatherService = new WeatherService(wundergroundClient, wundergroundResponseTransformer);
     private Logger logger = Logger.getLogger(WeatherResource.class.getName());
@@ -58,7 +58,7 @@ public class WeatherResource {
             return Response.status(200).entity(json).type(MediaType.APPLICATION_JSON).build();
         }
         catch (Exception e) {
-            return Response.status(404).entity("Service does not provide weather for given city: " + city).build();
+            return Response.status(404).entity("Service does not provide weather for given city").build();
         }
     }
 
