@@ -42,7 +42,7 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>src/test/java/resource/soap-ui-test.xml</projectFile>
+                            <projectFile>src/test/java/resource/soapui-test.xml</projectFile>
                         </configuration>
                     </execution>
                 </executions>
