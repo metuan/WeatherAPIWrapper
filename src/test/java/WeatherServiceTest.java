@@ -79,7 +79,7 @@ public class WeatherServiceTest {
     public void test_unsupported_city() throws Exception {
         testerService.getCityWeather("krakow");
     }
-    
+
     @Test
     public void test_supported_city_same_object() throws Exception {
         Assert.assertSame(testerService.getCityWeather("gdansk"), cityWeather);
