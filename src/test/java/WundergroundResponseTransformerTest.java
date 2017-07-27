@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Scanner;
 
 import static net.jadler.Jadler.*;
@@ -38,7 +39,7 @@ public class WundergroundResponseTransformerTest {
         initJadler();
         String contentOfXML = convertXMLFileToString("src\\test\\java\\resource\\WarszawaResponse.xml");
         String URLToSingleResponse = "/q/poland/warszawa.xml";
-        wc = new WundergroundClient("http://localhost:" + port() + "/");
+        wc = new WundergroundClient(new URL("http://localhost:" + port() + "/"));
         wrt = new WundergroundResponseTransformer();
         onRequest()
                 .havingMethodEqualTo("GET")

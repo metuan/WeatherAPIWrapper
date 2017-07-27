@@ -6,6 +6,7 @@ import com.tieto.wro.java.a17.wunderground.model.MultipleResponse;
 import com.tieto.wro.java.a17.wunderground.model.SingleResponse;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,10 +22,9 @@ public class WundergroundCLI {
     }
 
     private static WundergroundClient makeClientWithGivenCountryAndCity() throws MalformedURLException {
-        return new WundergroundClient(URL_API+"/");
+        return new WundergroundClient(new URL(URL_API+"/"));
     }
 
-    // getting URL from arrayList which is a result of RESULSTS filed in multiple response class
     private static String getUniqueURI(MultipleResponse multipleResponse) throws Exception {
         System.out.println("Multiple options, choose one or exit: ");
         List<MultipleResponse.Results.Result> arrayOfChoices = new ArrayList<>(multipleResponse.getResults().getResult());
@@ -43,7 +43,6 @@ public class WundergroundCLI {
         return arrayOfChoices.get(choice - 1).getL();
     }
 
-    // Handling weather information in case of each response
     private static void handleErrorINFO(ErrorResponse errorResponse) {
         System.out.println("Type: " + errorResponse.getError().getType());
         System.out.println("Description: " + errorResponse.getError().getDescription());
@@ -54,7 +53,6 @@ public class WundergroundCLI {
         System.out.println("Wind kph: " + singleResponse.getCurrentObservation().getWindKph());
     }
 
-    // launch weather CLI app to connect with WundegroundClient and API
     private static void launchCLIWeatherApp(String country, String city) throws Exception {
         WundergroundClient weatherClient = makeClientWithGivenCountryAndCity();
         IResponse firstResponseOfWeatherAPI = weatherClient.getWeather(country, city);
@@ -66,7 +64,7 @@ public class WundergroundCLI {
         }
         else if (firstResponseOfWeatherAPI instanceof MultipleResponse){
             String uniqueURL = makeURLFromMultipleChoices((MultipleResponse) firstResponseOfWeatherAPI);
-            handleSingleINFO(weatherClient.getResponseFromMultipleChoices(uniqueURL));
+            handleSingleINFO(weatherClient.getSingleResponseFromMultipleChoices(uniqueURL));
         }
         else {
             throw new Exception("WE CAN NOT FIND THE TYPE OF RESPONSE");

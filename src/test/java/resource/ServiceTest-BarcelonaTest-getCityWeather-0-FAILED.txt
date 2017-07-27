@@ -1,0 +1,10 @@
+Status: FAILED
+Time Taken: 0
+Size: 0
+Timestamp: Thu Jul 27 10:14:35 CEST 2017
+TestStep: getCityWeather
+
+----------------- Messages ------------------------------
+org.apache.http.conn.HttpHostConnectException: Connection to http://localhost:8080 refused
+
+- missing response / garbage collected -

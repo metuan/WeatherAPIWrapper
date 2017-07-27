@@ -18,7 +18,7 @@ public class WeatherService {
     private final WundergroundClient wundergroundClient;
     private static final Map<String, String> CONTAINER_OF_ALLOWED_CITIES;
     private final WundergroundResponseTransformer wundergroudResponseTransformer;
-    private Logger logger = Logger.getLogger(WeatherResource.class.getName());
+    private static final Logger logger = Logger.getLogger(WeatherResource.class.getName());
 
 
 
@@ -32,6 +32,7 @@ public class WeatherService {
     }
 
     public WeatherService(WundergroundClient wundergroundClient, WundergroundResponseTransformer wundergroudResponseTransformer) {
+        logger.info("Created weather service");
         this.wundergroudResponseTransformer = wundergroudResponseTransformer;
         this.wundergroundClient = wundergroundClient;
     }

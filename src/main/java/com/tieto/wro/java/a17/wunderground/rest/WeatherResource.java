@@ -14,6 +14,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 /**
@@ -22,11 +24,15 @@ import javax.ws.rs.core.Response;
  */
 @Path("/")
 public class WeatherResource {
-    private WundergroundClient wundergroundClient = new WundergroundClient("http://localhost:8089/");
+
+    private WundergroundClient wundergroundClient = new WundergroundClient(new URL("http://localhost:8089/"));
     private WundergroundResponseTransformer wundergroundResponseTransformer = new WundergroundResponseTransformer();
     private WeatherService weatherService = new WeatherService(wundergroundClient, wundergroundResponseTransformer);
     private Logger logger = Logger.getLogger(WeatherResource.class.getName());
     private ObjectMapper objectMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
+
+    public WeatherResource() throws MalformedURLException {
+    }
 
 
     @GET
@@ -58,6 +64,7 @@ public class WeatherResource {
             return Response.status(200).entity(json).type(MediaType.APPLICATION_JSON).build();
         }
         catch (Exception e) {
+            logger.error("Given city is not provided");
             return Response.status(404).entity("Service does not provide weather for given city").build();
         }
     }

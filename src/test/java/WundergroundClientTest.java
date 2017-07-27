@@ -16,6 +16,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Scanner;
 
 import static net.jadler.Jadler.*;
@@ -70,7 +71,7 @@ public class WundergroundClientTest {
 
 
 
-        wc = new WundergroundClient("http://localhost:" + port() +"/");
+        wc = new WundergroundClient(new URL("http://localhost:" + port() +"/"));
     }
     @After
     public void tearDown() {

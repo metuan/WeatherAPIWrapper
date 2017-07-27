@@ -11,6 +11,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -76,11 +79,7 @@ public class WeatherServiceTest {
     public void test_unsupported_city() throws Exception {
         testerService.getCityWeather("krakow");
     }
-    @Test
-    public void test_constructor_class() {
-        WeatherService ws1 = new WeatherService(new WundergroundClient("Byl co 123"), new WundergroundResponseTransformer());
-    }
-
+    
     @Test
     public void test_supported_city_same_object() throws Exception {
         Assert.assertSame(testerService.getCityWeather("gdansk"), cityWeather);

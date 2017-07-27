@@ -35,9 +35,6 @@
                 <groupId>com.smartbear.soapui</groupId>
                 <artifactId>soapui-maven-plugin</artifactId>
                 <version>4.6.1</version>
-                <configuration>
-                    <projectFile>src/test/java/resource/soapui-test.xml</projectFile>
-                </configuration>
                 <executions>
                     <execution>
                         <phase>test</phase>
@@ -45,7 +42,7 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>src/test/java/resource/soapui-test.xml</projectFile>
+                            <projectFile>src/test/java/resource/soap-ui-test.xml</projectFile>
                         </configuration>
                     </execution>
                 </executions>
