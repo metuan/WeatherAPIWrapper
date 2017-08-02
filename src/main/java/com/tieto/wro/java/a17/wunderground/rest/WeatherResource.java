@@ -14,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -25,13 +26,13 @@ import java.net.URL;
 @Path("/")
 public class WeatherResource {
 
-    private WundergroundClient wundergroundClient = new WundergroundClient(new URL("http://localhost:8089/"));
+    private WundergroundClient wundergroundClient = new WundergroundClient(new URL("http://api.wunderground.com/api/31c81b32dea6da45/conditions/q/"));
     private WundergroundResponseTransformer wundergroundResponseTransformer = new WundergroundResponseTransformer();
     private WeatherService weatherService = new WeatherService(wundergroundClient, wundergroundResponseTransformer);
     private Logger logger = Logger.getLogger(WeatherResource.class.getName());
     private ObjectMapper objectMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
 
-    public WeatherResource() throws MalformedURLException {
+    public WeatherResource() throws IOException {
     }
 
 
@@ -49,7 +50,7 @@ public class WeatherResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getWeatherFromAllowedCities() throws Exception {
         String json = objectMapper.writeValueAsString(weatherService.getCitiesWeathers());
-        logger.info("Status - 200. Downloaded weathers for all citites");
+        logger.info("Started to download weathers for all citites");
         return Response.status(200).entity(json).type(MediaType.APPLICATION_JSON).build();
     }
 
@@ -61,11 +62,12 @@ public class WeatherResource {
         try {
             String cityIgnoreCase = city.toLowerCase();
             String json = objectMapper.writeValueAsString(weatherService.getCityWeather(cityIgnoreCase));
+            logger.info("Returning valid response");
             return Response.status(200).entity(json).type(MediaType.APPLICATION_JSON).build();
         }
         catch (Exception e) {
-            logger.error("Given city is not provided");
-            return Response.status(404).entity("Service does not provide weather for given city").build();
+            logger.error("Return invalid response");
+            return Response.status(404).entity("Service does not provide weather for given city [" + city + "]").build();
         }
     }
 

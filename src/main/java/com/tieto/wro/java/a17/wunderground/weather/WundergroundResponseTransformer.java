@@ -16,7 +16,6 @@ public class WundergroundResponseTransformer {
 
     public CityWeather transform(IResponse response) throws Exception {
         if (response instanceof SingleResponse) {
-            logger.info("Started transforming response");
             SingleResponse uniqueSingleResponse = (SingleResponse) response;
             CityWeather cityWeatherBasedOnResponse = new CityWeather();
             cityWeatherBasedOnResponse.setLocation(uniqueSingleResponse.getCurrentObservation().getDisplayLocation().getFull());
@@ -26,6 +25,7 @@ public class WundergroundResponseTransformer {
             cityWeatherBasedOnResponse.setWeather(uniqueSingleResponse.getCurrentObservation().getWeather());
             cityWeatherBasedOnResponse.setWindString(uniqueSingleResponse.getCurrentObservation().getWindString());
             cityWeatherBasedOnResponse.setWeatherDate(uniqueSingleResponse.getCurrentObservation().getObservationTime());
+            logger.info("Response transformed");
             return cityWeatherBasedOnResponse;
         }
         else {

@@ -1,11 +1,15 @@
-import com.tieto.wro.java.a17.wunderground.client.*;
-import com.tieto.wro.java.a17.wunderground.model.*;
-import com.tieto.wro.java.a17.wunderground.weather.*;
-import org.apache.log4j.Logger;
+import com.tieto.wro.java.a17.wunderground.client.WundergroundClient;
+import com.tieto.wro.java.a17.wunderground.model.ErrorResponse;
+import com.tieto.wro.java.a17.wunderground.model.IResponse;
+import com.tieto.wro.java.a17.wunderground.model.MultipleResponse;
+import com.tieto.wro.java.a17.wunderground.model.SingleResponse;
+import com.tieto.wro.java.a17.wunderground.weather.CityWeather;
+import com.tieto.wro.java.a17.wunderground.weather.WundergroundResponseTransformer;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -19,15 +23,14 @@ import static net.jadler.Jadler.*;
 public class WundergroundResponseTransformerTest {
 
     private static final String SINGLE_RESPONSE_CITY = "warszawa";
-    private static final String MUTLITPLE_RESPONSE_CITY = "krakow";
+    private static final String MULTIPLE_RESPONSE_CITY = "krakow";
     private static final String ERROR_RESPONSE_CTY = "xdxdasdas";
     private static final String COUNTRY = "poland";
     private WundergroundClient wc;
     private WundergroundResponseTransformer wrt;
     private CityWeather cw;
-    private Logger logger = Logger.getLogger(WundergroundResponseTransformerTest.class);
-    IResponse iResponse;
-    SingleResponse singleResponse;
+
+    private SingleResponse singleResponse;
 
     private String convertXMLFileToString(String fileName) throws FileNotFoundException {
         return new Scanner(new File(fileName).getAbsoluteFile()).useDelimiter("\\Z").next();
@@ -35,7 +38,6 @@ public class WundergroundResponseTransformerTest {
 
     @Before
     public void setUp() throws Exception {
-        logger.info("RESPONSE TRANSFORMER TESTS INITLLIAZED");
         initJadler();
         String contentOfXML = convertXMLFileToString("src\\test\\java\\resource\\WarszawaResponse.xml");
         String URLToSingleResponse = "/q/poland/warszawa.xml";
@@ -48,7 +50,7 @@ public class WundergroundResponseTransformerTest {
                 .withBody(contentOfXML)
                 .withContentType("application/XML")
                 .withStatus(200);
-        iResponse = wc.getWeather(COUNTRY, SINGLE_RESPONSE_CITY);
+        IResponse iResponse = wc.getWeather(COUNTRY, SINGLE_RESPONSE_CITY);
         singleResponse = (SingleResponse) iResponse;
         cw = wrt.transform(singleResponse);
     }
@@ -85,8 +87,8 @@ public class WundergroundResponseTransformerTest {
     }
 
     @Test(expected = RuntimeException.class)
-    public void check_if_exception_is_thrown_with_mutiple_response() throws Exception {
-        IResponse response = wc.getWeather(COUNTRY, MUTLITPLE_RESPONSE_CITY);
+    public void check_if_exception_is_thrown_with_multiple_response() throws Exception {
+        IResponse response = wc.getWeather(COUNTRY, MULTIPLE_RESPONSE_CITY);
         MultipleResponse multipleResponse = (MultipleResponse) response;
         CityWeather cw = wrt.transform(multipleResponse);
         Assert.assertNull(cw);

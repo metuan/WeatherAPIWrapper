@@ -6,13 +6,9 @@ import com.tieto.wro.java.a17.wunderground.model.SingleResponse;
 import com.tieto.wro.java.a17.wunderground.weather.CityWeather;
 import com.tieto.wro.java.a17.wunderground.weather.WeatherService;
 import com.tieto.wro.java.a17.wunderground.weather.WundergroundResponseTransformer;
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,20 +19,20 @@ public class WeatherServiceTest {
     private CityWeather cityWeather;
     private WeatherService testerService;
     private WundergroundResponseTransformer testerTransformer;
-    private Logger logger = Logger.getLogger(WeatherServiceTest.class.getName());
 
 
     @Before
     public void setUp() throws Exception {
-        logger.info("SERVICE TESTS INITLLIAZED");
         testerClient = mock(WundergroundClient.class);
         SingleResponse singleResponse = setUpTestResponse();
         cityWeather = setUpTestWeather();
         testerTransformer = mock(WundergroundResponseTransformer.class);
         testerService = new WeatherService(testerClient, testerTransformer);
+        WeatherService.initializeMapOfLocations();
+
 
         when(testerTransformer.transform(singleResponse)).thenReturn(cityWeather);
-        when(testerClient.getWeather("poland", "gdansk")).thenReturn(singleResponse);
+        when(testerClient.getWeather("q/zmw:00000.141.12140.xml")).thenReturn(singleResponse);
     }
 
     private CityWeather setUpTestWeather() {
@@ -65,14 +61,33 @@ public class WeatherServiceTest {
     }
 
     @Test
+    public void test_supported_city_string_relative_humidity() throws Exception {
+        Assert.assertEquals(testerService.getCityWeather("gdansk").getRelativeHumidity(), cityWeather.getRelativeHumidity());
+    }
+
+    @Test
+    public void test_supported_city_string_weather_date() throws Exception {
+        Assert.assertEquals(testerService.getCityWeather("gdansk").getWeatherDate(), cityWeather.getWeatherDate());
+    }
+
+    @Test
+    public void test_supported_city_string_wind_direction() throws Exception {
+        Assert.assertEquals(testerService.getCityWeather("gdansk").getWindDirection(), cityWeather.getWindDirection());
+    }
+
+    @Test
     public void test_supported_city_string_location() throws Exception {
         Assert.assertEquals(testerService.getCityWeather("gdansk").getLocation(), cityWeather.getLocation());
     }
 
     @Test
     public void test_supported_city_float_temperature() throws Exception {
-
         Assert.assertEquals(testerService.getCityWeather("gdansk").getTemperatureCelsius(), cityWeather.getTemperatureCelsius(), 0.01);
+    }
+
+    @Test
+    public void test_supported_city_float_wind_string() throws Exception {
+                Assert.assertEquals(testerService.getCityWeather("gdansk").getWindString(), cityWeather.getWindString());
     }
 
     @Test(expected = RuntimeException.class)
@@ -86,6 +101,10 @@ public class WeatherServiceTest {
     }
 
     @Test
+    public void test_list_of_all_supported_cities() throws Exception {
+        Assert.assertNotNull(testerService.getCitiesWeathers());
+    }
+    @Test
     public void is_building_the_service() {
         Assert.assertNotNull(testerService);
     }
@@ -97,4 +116,5 @@ public class WeatherServiceTest {
     public void is_mocking_the_Client() {
         Assert.assertNotNull(testerClient);
     }
+
 }
