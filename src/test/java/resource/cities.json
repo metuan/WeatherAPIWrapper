@@ -1,8 +1,8 @@
 {
-    "chicago" : "q/zmw:60601.1.99999.xml",
-    "magdeburg" : "q/zmw:00000.192.10361.xml",
-    "barcelona" : "q/zmw:00000.17.08181.xml",
-    "quebec" : "q/zmw:00000.5.71578.xml",
-    "gdansk" : "q/zmw:00000.141.12140.xml" ,
-    "warszawa" : "q/zmw:00000.123.12372.xml"
+	"chicago" : "q/zmw:60601.1.99999.xml",
+	"magdeburg" : "q/zmw:00000.192.10361.xml",
+	"barcelona" : "q/zmw:00000.17.08181.xml",
+	"quebec" : "q/zmw:00000.5.71578.xml",
+	"gdansk" : "q/zmw:00000.141.12140.xml" ,
+	"warszawa" : "q/zmw:00000.123.12372.xml"
 }

@@ -20,57 +20,54 @@ import java.net.URL;
  */
 public class WundergroundClient {
 
-    private static final Logger logger = Logger.getLogger(WundergroundClient.class);
-    private URL baseURL;
+	private static final Logger LOGGER = Logger.getLogger(WundergroundClient.class);
+	private URL baseURL;
 
-    public WundergroundClient(URL baseURL) {
-        this.baseURL = baseURL;
-    }
+	public WundergroundClient(URL baseURL) {
+		this.baseURL = baseURL;
+	}
 
-    private WebTarget getTargetToResource(String URL) {
-        Client client = ClientBuilder.newClient();
-        logger.info("Created WebTarget");
-        return client.target(URL);
-    }
+	private WebTarget getTargetToResource(String url) {
+		Client client = ClientBuilder.newClient();
+		LOGGER.info("Created WebTarget");
+		return client.target(url);
+	}
 
-    private Response preparingResponseToReadEntity(String URL) throws MalformedURLException {
-        WebTarget weatherResource = getTargetToResource(URL);
-        Invocation.Builder prepareExecution = weatherResource.request(MediaType.TEXT_XML);
-        Response response = prepareExecution.get();
-        response.bufferEntity();
-        return response;
-    }
+	private Response preparingResponseToReadEntity(String url) throws MalformedURLException {
+		WebTarget weatherResource = getTargetToResource(url);
+		Invocation.Builder prepareExecution = weatherResource.request(MediaType.TEXT_XML);
+		Response response = prepareExecution.get();
+		response.bufferEntity();
+		return response;
+	}
 
 //    SingleResponse getSingleResponseFromMultipleChoices(String uniqueURL) throws MalformedURLException {
 //        WebTarget weatherResource = getTargetToResource(uniqueURL);
 //        Invocation.Builder prepareExecution = weatherResource.request(MediaType.TEXT_XML);
 //        Response uniqueResponse = prepareExecution.get();
 //        uniqueResponse.bufferEntity();
-//        logger.info("Unique response is taken from multiple response");
+//        LOGGER.info("Unique response is taken from multiple response");
 //        return uniqueResponse.readEntity(SingleResponse.class);
 //    }
 
-    public IResponse getWeather(String country, String city) throws MalformedURLException {
-        String URLToCity = baseURL + "q/" + country + "/" + city + ".xml";
-        Response response = preparingResponseToReadEntity(URLToCity);
-        SingleResponse maybeSingleResponse = response.readEntity(SingleResponse.class);
-        if (maybeSingleResponse.getCurrentObservation() == null) {
-            MultipleResponse maybeMultipleResponse = response.readEntity(MultipleResponse.class);
-            if (maybeMultipleResponse.getResults() == null) {
-                return response.readEntity(ErrorResponse.class);
-            } else {
-                return maybeMultipleResponse;
-            }
-        }
-        return maybeSingleResponse;
-    }
+	public IResponse getWeather(String country, String city) throws MalformedURLException {
+		String urlToCity = baseURL + "q/" + country + "/" + city + ".xml";
+		Response response = preparingResponseToReadEntity(urlToCity);
+		SingleResponse maybeSingleResponse = response.readEntity(SingleResponse.class);
+		if (maybeSingleResponse.getCurrentObservation() == null) {
+			MultipleResponse maybeMultipleResponse = response.readEntity(MultipleResponse.class);
+			if (maybeMultipleResponse.getResults() == null) {
+				return response.readEntity(ErrorResponse.class);
+			} else {
+				return maybeMultipleResponse;
+			}
+		}
+		return maybeSingleResponse;
+	}
 
-    public IResponse getWeather(String uniqueURL) throws MalformedURLException {
-        String URL = baseURL + uniqueURL;
-        Response response = preparingResponseToReadEntity(URL);
-        return response.readEntity(SingleResponse.class);
-    }
+	public IResponse getWeather(String uniqueURL) throws MalformedURLException {
+		String url = baseURL + uniqueURL;
+		Response response = preparingResponseToReadEntity(url);
+		return response.readEntity(SingleResponse.class);
+	}
 }
-
-
-

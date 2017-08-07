@@ -15,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -26,49 +25,50 @@ import java.net.URL;
 @Path("/")
 public class WeatherResource {
 
-    private WundergroundClient wundergroundClient = new WundergroundClient(new URL("http://api.wunderground.com/api/31c81b32dea6da45/conditions/q/"));
-    private WundergroundResponseTransformer wundergroundResponseTransformer = new WundergroundResponseTransformer();
-    private WeatherService weatherService = new WeatherService(wundergroundClient, wundergroundResponseTransformer);
-    private Logger logger = Logger.getLogger(WeatherResource.class.getName());
-    private ObjectMapper objectMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
+	private static final String LOCALHOST_MOCK = "http://localhost:8089/";
+	private static final String API_WUNDERGROUND = "http://api.wunderground.com/api/31c81b32dea6da45/conditions/";
 
-    public WeatherResource() throws IOException {
-    }
+	private WundergroundClient wundergroundClient = new WundergroundClient(new URL(API_WUNDERGROUND));
+	private WundergroundResponseTransformer wundergroundResponseTransformer = new WundergroundResponseTransformer();
+	private WeatherService weatherService = new WeatherService(wundergroundClient, wundergroundResponseTransformer);
+	private Logger logger = Logger.getLogger(WeatherResource.class.getName());
+	private ObjectMapper objectMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
 
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response getInfoAboutApp() {
-        logger.info("Accesing blank space - show info about app");
-        return Response.status(200).entity("There is nothing to show here." + "\n" +
-                "Go to /weather or /weather/{city}" + "\n"+
-                "Made by KR.").build();
-    }
-
-    @GET
-    @Path("/weather")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getWeatherFromAllowedCities() throws Exception {
-        String json = objectMapper.writeValueAsString(weatherService.getCitiesWeathers());
-        logger.info("Started to download weathers for all citites");
-        return Response.status(200).entity(json).type(MediaType.APPLICATION_JSON).build();
-    }
+	public WeatherResource() throws IOException {
+	}
 
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("weather/{city}")
-    public Response getWeatherFromGivenCity(@PathParam("city") String city) throws Exception {
-        try {
-            String cityIgnoreCase = city.toLowerCase();
-            String json = objectMapper.writeValueAsString(weatherService.getCityWeather(cityIgnoreCase));
-            logger.info("Returning valid response");
-            return Response.status(200).entity(json).type(MediaType.APPLICATION_JSON).build();
-        }
-        catch (Exception e) {
-            logger.error("Return invalid response");
-            return Response.status(404).entity("Service does not provide weather for given city [" + city + "]").build();
-        }
-    }
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response getInfoAboutApp() {
+		logger.info("Accesing blank space - show info about app");
+		return Response.status(Response.Status.OK).entity("There is nothing to show here." + "\n"
+				+ "Go to /weather or /weather/{city}" + "\n"
+				+ "Made by KR.").build();
+	}
+
+	@GET
+	@Path("/weather")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getWeatherFromAllowedCities() throws Exception {
+		String json = objectMapper.writeValueAsString(weatherService.getCitiesWeathers());
+		return Response.status(Response.Status.OK).entity(json).type(MediaType.APPLICATION_JSON).build();
+	}
+
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("weather/{city}")
+	public Response getWeatherFromGivenCity(@PathParam("city") String city) throws Exception {
+		try {
+			String cityIgnoreCase = city.toLowerCase();
+			String json = objectMapper.writeValueAsString(weatherService.getCityWeather(cityIgnoreCase));
+			logger.info("Returning valid response");
+			return Response.status(Response.Status.OK).entity(json).type(MediaType.APPLICATION_JSON).build();
+		} catch (Exception e) {
+			logger.error("Return invalid response");
+			return Response.status(Response.Status.NOT_FOUND).entity("Service doesnt provide: " + city).build();
+		}
+	}
 
 }

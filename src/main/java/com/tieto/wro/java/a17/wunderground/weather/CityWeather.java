@@ -4,79 +4,79 @@ package com.tieto.wro.java.a17.wunderground.weather;
  * Created by KR.
  */
 public class CityWeather {
-    
-    private String location;
-    private float temperatureCelsius;
-    private String relativeHumidity;
-    private String windDirection;
-    private String weather;
-    private String windString;
-    private String weatherDate;
 
-    public String getLocation() {
-        return location;
-    }
+	private String location;
+	private float temperatureCelsius;
+	private String relativeHumidity;
+	private String windDirection;
+	private String weather;
+	private String windString;
+	private String weatherDate;
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public String getLocation() {
+		return location;
+	}
 
-    public float getTemperatureCelsius() {
-        return temperatureCelsius;
-    }
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
-    public void setTemperatureCelsius(float temperatureCelsius) {
-        this.temperatureCelsius = temperatureCelsius;
-    }
+	public float getTemperatureCelsius() {
+		return temperatureCelsius;
+	}
 
-    public String getRelativeHumidity() {
-        return relativeHumidity;
-    }
+	public void setTemperatureCelsius(float temperatureCelsius) {
+		this.temperatureCelsius = temperatureCelsius;
+	}
 
-    public void setRelativeHumidity(String relativeHumidity) {
-        this.relativeHumidity = relativeHumidity;
-    }
+	public String getRelativeHumidity() {
+		return relativeHumidity;
+	}
 
-    public String getWindDirection() {
-        return windDirection;
-    }
+	public void setRelativeHumidity(String relativeHumidity) {
+		this.relativeHumidity = relativeHumidity;
+	}
 
-    public void setWindDirection(String windDirection) {
-        this.windDirection = windDirection;
-    }
+	public String getWindDirection() {
+		return windDirection;
+	}
 
-    public String getWeather() {
-        return weather;
-    }
+	public void setWindDirection(String windDirection) {
+		this.windDirection = windDirection;
+	}
 
-    public void setWeather(String weather) {
-        this.weather = weather;
-    }
+	public String getWeather() {
+		return weather;
+	}
 
-    public String getWindString() {
-        return windString;
-    }
+	public void setWeather(String weather) {
+		this.weather = weather;
+	}
 
-    public void setWindString(String windString) {
-        this.windString = windString;
-    }
+	public String getWindString() {
+		return windString;
+	}
 
-    public String getWeatherDate() {
-        return weatherDate;
-    }
+	public void setWindString(String windString) {
+		this.windString = windString;
+	}
 
-    public void setWeatherDate(String weatherDate) {
-        this.weatherDate = weatherDate;
-    }
+	public String getWeatherDate() {
+		return weatherDate;
+	}
 
-    @Override
-    public String toString() {
-        return  "location: " + this.location + "\n" +
-                "tempC: " + this.temperatureCelsius + "\n" +
-                "relative humidty: " + this.relativeHumidity + "\n" +
-                "wind direction: " + this.windDirection + "\n" +
-                "weather: " + this.weather + "\n" +
-                "wind description: " + this.windString + "\n" +
-                this.weatherDate;
-    }
+	public void setWeatherDate(String weatherDate) {
+		this.weatherDate = weatherDate;
+	}
+
+	@Override
+	public String toString() {
+		return  "location: " + this.location + "\n"
+				+ "tempC: " + this.temperatureCelsius + "\n"
+				+ "relative humidty: " + this.relativeHumidity + "\n"
+				+ "wind direction: " + this.windDirection + "\n"
+				+ "weather: " + this.weather + "\n"
+				+ "wind description: " + this.windString + "\n"
+				+ this.weatherDate;
+	}
 }
